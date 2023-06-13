@@ -23,20 +23,20 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GameDTO> getGame(@PathVariable long id) throws Exception {
+    public ResponseEntity<GameDTO> getGame(@PathVariable Integer id) throws Exception {
         GameDTO gameDTO = gameService.read(id);
         return ResponseEntity.ok(gameDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateGame(@PathVariable long id, @RequestBody GameDTO gameDTO) throws Exception {
+    public ResponseEntity<String> updateGame(@PathVariable Integer id, @RequestBody GameDTO gameDTO) throws Exception {
         gameDTO.setId(id); // Ensure the provided ID is set in the DTO
         gameService.update(gameDTO);
         return ResponseEntity.ok("Game updated");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteGame(@PathVariable long id) throws Exception {
+    public ResponseEntity<String> deleteGame(@PathVariable Integer id) throws Exception {
         gameService.delete(id);
         return ResponseEntity.ok("Game deleted");
     }

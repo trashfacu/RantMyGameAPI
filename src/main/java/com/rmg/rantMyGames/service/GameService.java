@@ -8,15 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class GameService implements ICRUDService <GameDTO, Game>{
+
+    private static final Logger logger = Logger.getLogger(GameService.class);
 
     @Autowired
     private IGameRepository gameRepository;
@@ -38,13 +40,19 @@ public class GameService implements ICRUDService <GameDTO, Game>{
         if (gameRepository.existsByGameTitle(gameDTO.getGameTitle())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Game title must be unique. Another game with that same title already exist.");
         }
-        // Convert GameDTO to Game Entity
-        Game game = mapper.convertValue(gameDTO,Game.class);
-        gameRepository.save(game);
+        try {
+            // Convert GameDTO to Game Entity
+            Game game = mapper.convertValue(gameDTO, Game.class);
+            gameRepository.save(game);
+        } catch (Exception e) {
+            // Log the exception for troubleshooting
+            logger.error("An error occurred while saving the game", e);
+            throw e;
+        }
     }
 
     @Override
-    public GameDTO read(Long id) throws Exception {
+    public GameDTO read(Integer id) throws Exception {
         //Validat that the id is not null or less that cero
         if (id == null|| id <= 0){
             throw new IllegalArgumentException("Invalid game ID");
@@ -59,7 +67,7 @@ public class GameService implements ICRUDService <GameDTO, Game>{
     }
 
     @Override
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
         //Validat that the id is not null or less that cero
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Invalid game ID");
@@ -73,21 +81,22 @@ public class GameService implements ICRUDService <GameDTO, Game>{
 
     @Override
     public void update(GameDTO gameDTO) throws Exception {
-        //Validate that the DTO is not null
+        // Validate that the DTO is not null
         if (gameDTO == null) {
             throw new IllegalArgumentException("Game DTO cannot be null");
         }
-        //Check if the game id is valid
-        Long gameId = gameDTO.getId();
+        // Check if the game id is valid
+        Integer gameId = gameDTO.getId();
         if (gameId == null || gameId <= 0) {
             throw new IllegalArgumentException("Invalid game ID");
         }
-        //Check if exist in the database
+        // Check if the game exists in the database
         if (!gameRepository.existsById(gameId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found");
         }
-
+        // Convert GameDTO to Game entity and set the game ID explicitly
         Game game = mapper.convertValue(gameDTO, Game.class);
+        game.setGameId(gameId);
         gameRepository.save(game);
     }
 

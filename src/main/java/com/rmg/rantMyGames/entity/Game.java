@@ -8,22 +8,22 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "Games")
+@Table(name = "Game")
 @Getter @Setter
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="game_id")
-    private Long gameId;
-    @Column(name = "name")
+    @Column(name = "GameID")
+    private Integer gameId;
+    @Column(name = "Name")
     private String gameTitle;
-    @Column(name = "description")
+    @Column(name = "Description")
     private String gameDescription;
-    @Column(name = "release_date")
+    @Column(name = "ReleaseDate")
     private LocalDate gameReleaseDate;
-    @Column(name = "developer")
+    @Column(name = "Developer")
     private String gameDeveloper;
-    @Column(name = "publisher")
+    @Column(name = "Publisher")
     private String gamePublisher;
 
     @OneToMany(mappedBy = "gameRated")

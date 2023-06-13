@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id;")
+    @Column(name = "review_id")
     private Long reviewId;
     @Column(name = "text_review")
     private String textReview;
