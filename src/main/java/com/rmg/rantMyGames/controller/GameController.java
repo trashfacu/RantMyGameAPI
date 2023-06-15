@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -18,9 +19,17 @@ public class GameController {
 
     @PostMapping
     public ResponseEntity<String> addGame(@RequestBody GameDTO gameDTO) throws Exception {
-        gameService.create(gameDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Game created");
+        try {
+            gameService.create(gameDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Game created");
+        } catch (ResponseStatusException e) {
+            if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getReason());
+            }
+            throw e;
+        }
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<GameDTO> getGame(@PathVariable Integer id) throws Exception {

@@ -37,8 +37,8 @@ public class GameService implements ICRUDService <GameDTO, Game>{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Invalid release date. Release date cannot be in the future.");
         }
         // Check for unique game title
-        if (gameRepository.existsByGameTitle(gameDTO.getGameTitle())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Game title must be unique. Another game with that same title already exist.");
+        if (gameRepository.existsByGameTitle(gameDTO.getGameTitle())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Game title must be unique. Another game with the same title already exists.");
         }
         try {
             // Convert GameDTO to Game Entity

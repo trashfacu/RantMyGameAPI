@@ -10,5 +10,4 @@ public class RantMyGamesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RantMyGamesApplication.class, args);
 	}
-
 }
