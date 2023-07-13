@@ -12,7 +12,7 @@ import java.util.List;
 @Getter @Setter
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "GameID")
     private Integer gameId;
     @Column(name = "Name")
