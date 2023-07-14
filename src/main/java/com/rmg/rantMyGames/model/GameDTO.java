@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter @Setter
 public class GameDTO {
-    @JsonProperty("gameId")
+    @JsonProperty("GameId")
     private Integer id;
     private String gameTitle;
     private String gameDescription;

@@ -9,20 +9,26 @@ import java.util.List;
 
 @Entity
 @Table(name = "Game")
-@Getter @Setter
+@Getter
+@Setter
 public class Game {
     @Id
     @GeneratedValue
-    @Column(name = "GameID")
+    @Column(name = "GameId")
     private Integer gameId;
+
     @Column(name = "Name")
     private String gameTitle;
+
     @Column(name = "Description")
     private String gameDescription;
+
     @Column(name = "ReleaseDate")
     private LocalDate gameReleaseDate;
+
     @Column(name = "Developer")
     private String gameDeveloper;
+
     @Column(name = "Publisher")
     private String gamePublisher;
 
@@ -31,5 +37,4 @@ public class Game {
 
     @OneToMany(mappedBy = "gameBelonging")
     private List<Review> reviews;
-
 }

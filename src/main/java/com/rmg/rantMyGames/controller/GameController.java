@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/games")
 public class GameController {
+
     @Autowired
     private GameService gameService;
 
@@ -29,7 +30,6 @@ public class GameController {
             throw e;
         }
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<GameDTO> getGame(@PathVariable Integer id) throws Exception {
@@ -51,9 +51,8 @@ public class GameController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<GameDTO>> listGames() {
-        List<GameDTO> gameDTOList = gameService.getAll();
-        return ResponseEntity.ok(gameDTOList);
+    public List<GameDTO> listGames() {
+        return gameService.getAll();
     }
 
     // Exception handling

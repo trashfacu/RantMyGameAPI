@@ -6,19 +6,22 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Reviews")
-@Getter @Setter
+@Getter
+@Setter
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
+    @Column(name = "ReviewId")
     private Long reviewId;
-    @Column(name = "text_review")
-    private String textReview;
-    @ManyToOne
-    @JoinColumn(name = "game_id")
-    private Game gameBelonging;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User userWhoWroteIt;
 
+    @Column(name = "TextReview")
+    private String textReview;
+
+    @ManyToOne
+    @JoinColumn(name = "GameId")
+    private Game gameBelonging;
+
+    @ManyToOne
+    @JoinColumn(name = "UserId")
+    private User userWhoWroteIt;
 }

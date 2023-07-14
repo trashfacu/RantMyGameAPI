@@ -6,22 +6,22 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Ratings")
-@Getter @Setter
+@Getter
+@Setter
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rating_id")
+    @Column(name = "RatingId")
     private Long ratingId;
-    @Column(name = "rating_value")
-    private Long ratingValue;
 
+    @Column(name = "RatingValue")
+    private Integer ratingValue;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "UserId")
     private User qualifyingUser;
 
     @ManyToOne()
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "GameId")
     private Game gameRated;
-
 }
